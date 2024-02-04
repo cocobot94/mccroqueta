@@ -9,10 +9,10 @@
       <div class="col-md-12">
         <h2 class="ftco-heading ftco-animate mb-3">Welcome to</h2>
         <h1 class="ftco-heading ftco-animate mb-3">Mr CROQUETA</h1>
-        {% if self.request.user.first_name %}
-          <h3 class="ftco-heading ftco-animate mb-3" style="color: blanchedalmond;"> {{request.user.first_name}} </h3>
+        {% if request.user.first_name %}
+          <a href="{% url 'profile' request.user.pk %}"><h3 class="ftco-heading ftco-animate mb-3" style="color: blanchedalmond;"> {{request.user.first_name}} </h3></a>
         {% else %}
-          <h3 class="ftco-heading ftco-animate mb-3" style="color: antiquewhite;">{{request.user.username}}</h3>
+        <a href="{% url 'profile' request.user.pk %}"><h3 class="ftco-heading ftco-animate mb-3" style="color: antiquewhite;">{{request.user.username}}</h3></a>
         {% endif %}
         <h2 class="h5 ftco-subheading mb-5 ftco-animate">A free template for Restaurant Websites Distributed by <a href="https://themewagon.com/" target="_blank">ThemeWagon</a></h2>    
         <p><a href="{% url 'modal' %}"  class="btn btn-outline-white btn-lg ftco-animate" >Reservation</a></p>
