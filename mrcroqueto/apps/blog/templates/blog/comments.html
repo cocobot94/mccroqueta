@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+{% block content %}
+
+  <div style="margin: 50px;">{% include 'blog/includes/menu_posts.html'%}</div>
+  {% if 'deleted' in request.GET %}
+  <div class="row align-items-center justify-content-center text-center">
+    <p style="color: rgb(68, 216, 48);">Post eliminated successfully!!!</p>
+  </div>
+  {% elif 'ok' in request.GET %}
+  <div class="row align-items-center justify-content-center text-center">
+    <p style="color: rgb(68, 216, 48);">Post accepted!!!</p>
+  </div>
+  {% elif 'nop' in request.GET %}
+  <div class="row align-items-center justify-content-center text-center">
+    <p style="color: rgb(68, 216, 48);">El post infrige las normas del blog!!!</p>
+  </div>
+  {% elif 'create' in request.GET %}
+  <div class="row align-items-center justify-content-center text-center">
+    <p style="color: rgb(0, 0, 0);font-size: 150%;">Your post is on revission now and will be posted soon </p>
+  </div>
+  {% endif %}
+    <div class="row align-items-center justify-content-center text-center">
+        <p><a href="{% url 'comment_create' %}"  class="btn btn-info ftco-animate" >Create comment</a></p>
+    </div>
+  {% for comment in comments %}
+      <div class="row align-items-center justify-content-center text-center">
+        <div  style="background-color:azure; border:0.5px;margin: 1.5% ;border-radius: 5%;width: 50%;">
+          <a href="#" ><h1 class="ftco-heading ftco-animate mb-3">{{comment.title}}</h1></a>
+          <h3 class="ftco-heading ftco-animate mb-3"></h3>
+          <p class="ftco-heading ftco-animate mb-3">{{comment.content|safe }}</p>    
+          <p class="ftco-heading ftco-animate mb-3">{{comment.created}}</p>    
+          <p><a href="{% url 'comment_create' %}"  class="btn  ftco-animate" ><span style="color: rgb(68, 0, 228);">Respond...</span></a></p>
+        </div>
+      </div>  
+  {% endfor %}
+  <!-- END section -->
+{%endblock%}

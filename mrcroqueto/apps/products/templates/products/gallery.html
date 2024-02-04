@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+{% block content %}
+
+{% if request.user.is_authenticated %}
+<section class="ftco-section" id="section-gallery">
+    <div class="container">
+      <div class="row ftco-custom-gutters">
+
+        <div class="col-md-12 text-center mb-5 ftco-animate">
+          <h2 class="display-4">Food Gallery</h2>
+          <div class="row justify-content-center">
+            <div class="col-md-7">
+              <p class="lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+            </div>
+          </div>
+        </div>
+        {% for product in products %}
+          {% if product.image %}
+            <div class="col-md-3 ftco-animate">
+              <a href="{{ product.image.url }}" class="ftco-thumbnail image-popup">
+                <img src="{{ product.image.url }}" alt="" class="img-fluid" style="width: 500px;height: 500px; object-fit: cover;">
+              </a>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  <!-- END section -->
+{% else %}
+<div style="padding: 10%;">
+  <h1>You need to Login to see our gallery</h1></div>
+{% endif %}
+{% endblock %}

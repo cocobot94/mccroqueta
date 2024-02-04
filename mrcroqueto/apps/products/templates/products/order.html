@@ -1,0 +1,55 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+{% block content %}
+{% if request.user.user_orders %}
+  <section class="ftco-section bg-light" id="section-offer"  >
+      <div class="container">
+          <div class="row" >
+              <div  class="col-md-12 text-center mb-5 ftco-animate" >
+                <h4 class="ftco-sub-title"></h4>
+                <h2 class="display-4">Order Details</h2>
+                <div class="row justify-content-center">
+                  <div class="col-md-7">
+                    <p class="lead">{{order.user}}</p>
+                    {% if 'actualizado' in request.GET %}
+                      <p class="lead" style="color:chartreuse;"> <strong>Order Updated</strong> </p>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+              
+              </div>
+            </div>
+          </div>
+            <div class="col-md-12">
+              <div >
+                  <div class="item">
+                    <div class="media d-block mb-4 text-center ftco-media ftco-animate border-0">
+                      <a href="{{ object.image.url }}" class="ftco-thumbnail image-popup">
+                        <img src="{{ object.image.url }}" alt="" class="img-fluid">
+                      </a>
+                      <div class="media-body p-md-5 p-4">
+                        {% for order in object.order_detail.all %}
+                        <p class="mb-4"><strong>{{order.amount}}</strong> - {{order.product}} ${{order.product.price}} </p>
+                        {% endfor %}
+                        <h5 class="text-primary"><span style="color: black;">Total $ {{object.total}}</span> </h5>
+                        <h5 class="btn btn-secondary "><a href="{% url 'order_update' object.pk %}" style="color: black;"> Add more <span class="icon-add-to-list"></span></a> </h5>
+                        
+
+                        <p class="mb-0"><a href="{% url 'check_out' %}" class="btn btn-primary btn-sm">Check Out</a></p>
+                        <a href="{% url 'order_delete' object.id %}" class="nav-link"><span class="icon-trash" style="font-size: 24px;"></span></a>
+                        
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+
+  {% endif %}
+  
+
+{% endblock %}

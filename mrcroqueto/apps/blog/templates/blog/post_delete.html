@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+{% block content %}
+<div style="margin: 50px;">{% include 'blog/includes/menu_posts.html'%}</div>
+<div style="padding: 20%;">
+    <div class="container">
+      <div class="row mt-3">
+        <div class="col-md-9 mx-auto">
+          <div>
+            <form action="" method="post">{% csrf_token %}
+              <p>¿Estás seguro de que quieres borrar <b>"{{ object.title }}"</b>?</p>
+              <input type="submit" class="btn btn-primary " value="Yes, delete post" />
+              <a href="{% url 'post_detail' object.id %}" class="btn btn-primary "  >No, go back</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+  {% endblock %}

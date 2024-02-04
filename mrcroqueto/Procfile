@@ -1,0 +1,1 @@
+web: gunicorn mrcroqueto.wsgi --log-file -

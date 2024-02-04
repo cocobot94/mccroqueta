@@ -1,0 +1,109 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+{% block content %}
+<!-- Menu -->
+<div style="margin: 50px;">{% include 'blog/includes/menu_posts.html'%}</div>
+<!-- Objeto detail -->
+<div class="row align-items-center justify-content-center text-center">
+  <div  style=" border:0.5px;margin: 5% ;border-radius: 10%;width: 50%;">
+    <h1 class="ftco-heading ftco-animate mb-3">{{object.title}}</h1>
+    {% if object.image %}
+      <div class="media d-block mb-4 text-center ftco-media ftco-animate">
+        <div class="row align-items-center justify-content-center text-center">
+          <a href="{{ object.image.url }}" class="ftco-thumbnail image-popup">  
+            <img src="{{ object.image.url }}" class="img-fluid" style=" width: 450px;height: 450px; object-fit: cover;" >
+          </a>
+        </div>
+      </div>
+    {% endif %}
+    <h3 class="ftco-heading ftco-animate mb-3"></h3>
+    <p class=" ftco-subheading mb-5">{{object.content}}</p>    
+      <p><a href="{% url 'profile' post.author.profile.id %}"  class="btn ftco-animate" ><span style="color: black;"><span class="icon-users "></span> </span>{{post.author}}</a><a href="{% url 'post_category' post.category_post.id %}"  class="btn ftco-animate" ><span style="color: black;"><span class="icon-price-tag "> </span></span>{{post.category_post}}</a><p class="ftco-heading ftco-animate mb-3">{{post.created|date:"SHORT_DATE_FORMAT"}}<p></p>
+    {% if request.user == post.author or request.user.is_staff %}
+      <p><a href="{% url 'post_update' post.id %}"  class="btn btn-info btn-sm  ftco-animate" ><span >Edit</span></a>  <a href="{% url 'post_delete' post.id %}"  class="btn btn-danger btn-sm  ftco-animate" ><span class="icon-trash"></span></a></p>
+    {% endif %}
+
+      <!--Likes and dislikes -->
+      <div class="row align-items-center justify-content-center text-center">
+        <!-- vistas  -->
+        <span class="icon-eye" style="color: gray;margin-right: 1%;">{{post.vistas}} </span>
+        <p >
+          {%if request.user in object.like.all %}
+            <form method="post" action="">
+              {% csrf_token %}
+              <input type="hidden"  name="nolike" value="nolike">
+              <button type="submit" style="background: none;margin: none;border: none;cursor: pointer;"><span  class="icon-thumbs-up" style="color:dodgerblue;"> {{object.like.count}} </span></button>
+            </form>
+          {% else %}
+            <form method="post" action="">
+              {% csrf_token %}
+              <input type="hidden"  name="like" value="like">
+              <button type="submit" style="background: none;margin: none;border: none;cursor: pointer;"><span  class="icon-thumbs-up" style="color:gray;"> {{object.like.count}} </span></button>
+            </form>
+          {% endif %}
+        </p>
+        <p style="margin-left: 1%;"></p>
+          {%if request.user in object.dislike.all %}
+            <form method="post" action="">
+              {% csrf_token %}
+              <input type="hidden"  name="nodislike" value="nodislike">
+              <button type="submit" style="background: none;margin: none;border: none;cursor: pointer;"><span  class="icon-thumbs-down" style="color:dodgerblue;"> {{object.dislike.count}} </span></button>
+            </form>
+          {% else %}
+            <form method="post" action="">
+              {% csrf_token %}
+              <input type="hidden"  name="dislike" value="dislike">
+              <button type="submit" style="background: none;margin: none;border: none;cursor: pointer;"><span  class="icon-thumbs-down" style="color:gray;"> {{object.dislike.count}} </span></button>
+            </form>
+          {% endif %}
+          
+          <!--favoritos -->
+        {%if request.user in object.fav.all %}
+          <form method="post">
+            {% csrf_token %}
+            <input type="hidden"  name="nofav" value="nofav">
+            <button type="submit" style="background: none;margin: none;border: none;cursor: pointer;"><span class="icon-star" style="color: gold;"></span></button>
+          </form>
+        {% else %}
+          <form method="post">
+            {% csrf_token %}
+            <input type="hidden"  name="fav" value="fav">
+            <button type="submit" style="background: none;margin: none;border: none;cursor: pointer;"><span class="icon-star" style="color: gray;"></span></button>
+          </form>
+        {% endif %}
+        </p>
+      </div>
+      
+      
+
+      
+  </div>
+</div>
+<div class="row align-items-center justify-content-center text-center">
+  <div >
+    {% if request.user.image %}
+      <a href="{% url 'profile' request.user.profile.pk %}" ><img  src="{{request.user.image.url}}"  class="rounded-circle" style=" width: 50px;height: 50px; object-fit: cover;" alt=""></a>
+    {% else %}
+      <a href="{% url 'profile' request.user.profile.pk %}" ><img  src="https://pruebacroqueto.s3.us-east-2.amazonaws.com/users/no-avatar.jpg"  class="rounded-circle" style="width: 7.5%;" alt=""></a>
+    {% endif %}
+    <a href="{% url 'comment_create' object.id %}"  class="btn  ftco-animate"  style="color: black;"><u>Add a comment...</u></a></div>
+</div>
+<!-- Comentarios -->
+{% for comment in comments %}
+      <div >
+        <div  style=" border:0.5px;margin: 1.5% ;border-radius: 5%;width: 50%;">
+          <div style="text-align: left;">
+            {% if comment.user.image %}
+              <a href="{% url 'profile' comment.user.profile.pk %}" ><img  src="{{comment.user.image.url}}"  class="rounded-circle" style=" width: 50px;height: 50px; object-fit: cover;" alt=""></a>
+            {% else %}
+              <a href="{% url 'profile' comment.user.profile.pk %}" ><img  src="https://pruebacroqueto.s3.us-east-2.amazonaws.com/users/no-avatar.jpg"  class="rounded-circle" style=" width: 50px;height: 50px; object-fit: cover;" alt=""></a>
+            {% endif %}
+            <a href="{% url 'profile' comment.user.profile.pk %}" ><span class="btn  ftco-animate" style="color: black;">{{comment.user.username}}</span></a><span>{{comment.created|date:'SHORT_DATE_FORMAT'}}</span></div>
+          <div class="ftco-heading ftco-animate mb-3 ml-7" style="color: black;line-height: 1.2em;overflow:hidden;">{{ comment.content }}</div>    
+             
+        </div>
+      </div>  
+  {% endfor %}
+{%endblock%}
+

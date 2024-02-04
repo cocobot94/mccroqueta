@@ -1,0 +1,71 @@
+{% load static %}
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+<div class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a href="{% url 'posts' %}"><span class="navbar-brand" ><i>Posts</i></span></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nep" aria-controls="nep" aria-expanded="false">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nep">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'post_create' %}"><i>Create post</i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'posts' %}"><i>Posts list</i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'posts_favorites' %}"><i>Favorites</i></a>
+        </li>
+        {% if request.user.is_staff %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'post_revission' %}"><i>Posts to review <span class="icon-tools"> {{amount_revissions}}</span></i></a>
+        </li>
+      </ul>
+      <ul class="navbar-nav mr-10">
+        {% endif %}
+        {% if FACEBOOK_LINK %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ FACEBOOK_LINK }}"><i><span class="icon-facebook"></span></i></a>
+        </li>
+        {% endif %}
+        {% if INSTAGRAM_LINK %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ INSTAGRAM_LINK }}"><i><span class="icon-instagram"></span></i></a>
+        </li>
+        {% endif %}
+        {% if TWITTER_LINK %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ TWITTER_LINK }}"><i><span class="icon-twitter"></span></i></a>
+        </li>
+        {% endif %}
+        {% if PINTEREST_LINK %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ PINTEREST_LINK }}"><i><span class="icon-pinterest"></span></i></a>
+        </li>
+        {% endif %}
+        {% if LINKEDIN_LINK %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ LINKEDIN_LINK }}"><span class="icon-linkedin"></span></a>
+        </li>
+        {% endif %}
+        {% if GITHUB_LINK %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ GITHUB_LINK }}"><span class="icon-github"></span></a>
+        </li>
+        {% endif %}
+        {% if YOUTUBE_LINK %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ YOUTUBE_LINK }}"><span class="icon-youtube"></span></a>
+        </li>
+        {% endif %}
+        {% if TRIPADVISOR_LINK %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ TRIPADVISOR_LINK }}"><span class="icon-youtube"></span></a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</div>

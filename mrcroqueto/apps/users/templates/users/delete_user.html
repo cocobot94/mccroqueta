@@ -1,0 +1,12 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+{% block content %}
+<div style="padding: 25%;">
+    <form method="post">{% csrf_token %}
+        <p style="font-size: 125%;">Are you sure you want to delete <strong>"{{ object }}"</strong>?</p>
+        {{ form }}
+        <input class="btn btn-primary  btn-block mt-3" type="submit" value="Confirm">
+    </form>
+</div>
+{% endblock %}

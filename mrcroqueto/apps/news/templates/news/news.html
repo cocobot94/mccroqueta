@@ -1,0 +1,71 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+{% block content %}
+
+<section class="ftco-section bg-light" id="section-news">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-12 text-center mb-5 ftco-animate">
+          <h2 class="display-4">News &amp; Events</h2>
+          <div class="row justify-content-center">
+            <div class="col-md-7">
+              <p class="lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- barra de busqueda -->
+        <div class="container" style="margin-bottom: 5%;">
+          <div class="row">
+            <div class="col-md-7 search">
+              <form method="get">
+                {% csrf_token %}
+                <div class="input-group-list col-md-12 d-flex">
+                  <input type="text" class="form-control" placeholder="Search in news..." name="search" value="{{request.GET.search}}">
+                    <button type="submit" class="btn btn-success">Search</button></i>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        {% for new in news %}
+        <div class="col-lg-4 col-md-6 col-sm-6" >
+          <div class="media d-block mb-4 text-center ftco-media ftco-animate" >
+            {% if new.image.url %}
+            <a href="{{ new.image.url }}" class="ftco-thumbnail image-popup">
+              <img src="{{ new.image.url }}" alt="{{ new.title }}" class="img-fluid" style="width: 350px;height: 350px; object-fit: cover;">
+            </a>
+            {% endif %}
+            <div class="media-body p-md-5 p-4">
+              <h5 class="mt-0 h4">{{ new.title }}</h5>
+              <p class="mb-4" >{{ new.content|linebreaksbr|truncatechars_html:150 }}</p>
+
+              <p class="mb-0"><a href="{% url 'news_detail' new.id %}" class="btn btn-primary btn-sm">Read More</a></p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="container" style="margin-bottom: 5%;">
+      <div class="row">
+        <div class="col-md-7 search">
+          {% if news.has_previous %}
+              <a href="?page={{ news.previous_page_number }}" class="btn btn-dark float-left">Back</a>
+          {% endif %}
+          {% if news.has_next %}
+              <p class="col-md-9 float-right"><a href="?page={{ news.next_page_number }}" class="btn btn-dark ">Next</a></p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+</section>
+
+
+
+{% endblock %}

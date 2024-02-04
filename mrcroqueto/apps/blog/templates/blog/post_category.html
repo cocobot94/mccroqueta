@@ -1,0 +1,60 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+{% block content %}
+
+  <section class="ftco-section bg-light" id="section-news">
+    <div class="container">
+      <div class="row"></div>
+        {% for post in posts %}
+          <div class="media d-block mb-4 text-center ftco-media ftco-animate">
+            <div class="media-body p-md-5 p-4">
+                <h5 class="mt-0 h4">{{ post.title }}</h5>
+            </div>
+            {% if post.image %}
+            <a href="{{ post.image.url }}" class="ftco-thumbnail image-popup">
+              <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid" style="width: 500px;height: 500px; object-fit: cover;">
+            </a>
+            {% endif %}
+            <div class="media-body p-md-5 p-4">
+              
+
+              <h3 class="ftco-heading ftco-animate mb-3"></h3>
+              <p class="ftco-heading ftco-animate mb-3">{{post.content|linebreaksbr|truncatechars_html:150 }}</p>    
+              <p class="mb-0"><a href="{% url 'post_detail' post.id %}" class="btn btn-secondary btn-sm">Read More</a></p>
+              <p>
+                <a href="{% url 'profile' post.author.profile.id %}"  class="btn ftco-animate" ><span style="color: black;" class="icon-users "></span><span> {{post.author.username}}</span></a>
+                <a href="{% url 'post_category' post.category_post.id %}"  class="btn ftco-animate" ><span style="color: black;" class="icon-price-tag "></span> {{post.category_post}}</a>
+                <p class="ftco-heading ftco-animate mb-3">{{post.created|date:"SHORT_DATE_FORMAT"}}</p>
+              </p>
+              <p>
+                <span class="icon-eye" style="color: gray;"> {{post.vistas}} </span>
+                <span class="icon-typing " style="color:gray;">{{post.comments_post.count}} </span>
+
+                {%if request.user in post.like.all %}
+                  <span  class="icon-thumbs-up "style="color:dodgerblue;">{{ post.like.count }}   </span>
+                {% else %}
+                  <span  class="icon-thumbs-up "style="color:gray;">{{ post.like.count }}   </span>
+                {% endif %}
+
+                {%if request.user in post.dislike.all %}
+                  <span  class=" icon-thumbs-down " style="color:dodgerblue;">{{ post.dislike.count }} </span>
+                {% else %}
+                  <span  class=" icon-thumbs-down " style="color:gray;">{{ post.dislike.count }} </span>
+                {% endif %}
+
+                {%if request.user in post.fav.all %}
+                    <span class="icon-star" style="color: gold;"></span>
+                {% else %}
+                    <span class="icon-star" style="color: gray;"></span>
+                {% endif %}
+              </p>
+            </div>
+          </div>
+          
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  <!-- END section -->
+{%endblock%}

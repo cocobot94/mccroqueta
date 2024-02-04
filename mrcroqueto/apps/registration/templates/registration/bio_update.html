@@ -1,0 +1,25 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Perfil{% endblock %}
+{% block content %}
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+<style>.errorlist{color:red;} </style>
+<main role="main" style="padding: 15%;">
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-md-9 mx-auto mb-5">
+        <form method="post" >{% csrf_token %}
+          <div class="col-md-2">
+          </div>
+          {{ form.as_p}}
+          <div class="text-center">
+              <input type="submit" class="btn btn-primary" value="Update Bio">
+          </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

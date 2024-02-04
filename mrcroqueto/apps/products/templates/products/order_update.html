@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+{% block content %}
+<br>
+<div style="padding: 10%;margin-bottom: 20%;">
+<main role="main">
+    <div class="container">
+      <div class="row mt-3 mb-5">
+        <div class="col-md-9 mx-auto">
+          <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+              {{ form.as_p }}
+            <div class="text-center">
+              <a href="{% url 'detail_create' %}"> <h6 class="text-primary menu-price">Add Product</h6></a>
+              <a href="{% url 'order' request.user.user_orders.pk %}"><h6 class="text-primary menu-price"><input type="submit" class="btn btn-primary btn-block" value="Save" /></h6></a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+{% endblock %}
+
