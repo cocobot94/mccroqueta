@@ -68,6 +68,8 @@
 
               {% if is_owner %}
                 <a href="{% url 'profile_update' %}" type="submit" class="btn btn-primary  mt-3" >Update Profile</a>
+              {% else %}
+                <a href="{% url 'posts' %}" type="submit" class="btn btn-info  mt-3" >Message</a>
               {% endif %}
               
               
