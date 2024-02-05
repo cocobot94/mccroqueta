@@ -20,8 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-)tr&)c4@&8q8u$5qq0*uqtns(dp5^#6%%j*@nwnw356dy=t^uv"
+# SECURITY WARNING: keep the secret key used 
 
 
 # Application definition
@@ -149,15 +148,6 @@ EMAIL_USE_SSL = False"""
 # Importa el backend de almacenamiento
 # from storages.backends.s3boto3 import S3Storage
 
-AWS_ACCESS_KEY_ID = "AKIA2CFPTPDSJEQVBOHO"
-AWS_SECRET_ACCESS_KEY = "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"
-AWS_STORAGE_BUCKET_NAME = "pruebacroqueto"
-AWS_S3_SIGNATURE_NAME = ("s3v4",)
-AWS_S3_REGION_NAME = "us-east-2"
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
-AWS_S3_VERITY = True
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
 # STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
