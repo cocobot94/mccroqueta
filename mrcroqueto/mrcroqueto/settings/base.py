@@ -144,17 +144,3 @@ EMAIL_HOST_USER = 'Your Email'
 EMAIL_HOST_PASSWORD = 'Your Password'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False"""
-
-# Importa el backend de almacenamiento
-# from storages.backends.s3boto3 import S3Storage
-
-
-# STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-
-"""AWS_S3_STATICFILES_LOCATION = "staticfiles"
-AWS_S3_STATICFILES_STORAGE = "storages.backends.s3boto3.3Storage"
-
-# Configuración para archivos multimedia (nueva clave staticfiles)
-AWS_S3_MEDIA_LOCATION = "media"
-AWS_S3_MEDIA_STORAGE = "storages.backends.s3boto3.3Storage"
-"""
